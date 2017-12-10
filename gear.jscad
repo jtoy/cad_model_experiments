@@ -7,11 +7,11 @@
 // Here we define the user editable parameters: 
 function getParameterDefinitions() {
   return [
-    { name: 'numTeeth', caption: 'Number of teeth:', type: 'int', initial: 10,  },
-    { name: 'circularPitch', caption: 'Circular pitch:', type: 'float', initial: 5 },
+    { name: 'numTeeth', caption: 'Number of teeth:', type: 'int', initial: 10,start:5,end:15 ,step:1 },
+    { name: 'circularPitch', caption: 'Circular pitch:', type: 'float', initial: 5 ,start:3,end:7,step:0.5},
     { name: 'pressureAngle', caption: 'Pressure angle:', type: 'float', initial: 20 },
-    { name: 'clearance', caption: 'Clearance:', type: 'float', initial: 0 },
-    { name: 'thickness', caption: 'Thickness:', type: 'float', initial: 5 },
+    { name: 'clearance', caption: 'Clearance:', type: 'float', initial: 0},
+    { name: 'thickness', caption: 'Thickness:', type: 'float', initial: 5,start:3,end:7,step:0.5 },
     { name: 'centerholeradius', caption: 'Radius of center hole (0 for no hole):', type: 'float', initial: 2 }
   ];
 }
