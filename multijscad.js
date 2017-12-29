@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const {execSync} = require('child_process')
 var _eval = require('eval')
-var sha1 = require('sha1');
+//var sha1 = require('sha1');
 var mkdirp = require('mkdirp');
 
 
@@ -60,11 +60,13 @@ jscadPath = "openjscad"
 console.log("total variations: "+combos.length)
 for(var i=0;  i < combos.length; i++){
   params = ""
+  folder = ""
   // TODO sort params so that the sha is always correct
   Object.keys(combos[i]).forEach(function(key) {
     params += ` --${key} ${combos[i][key]} `
+    folder += `${key}_${combos[i][key]}__`
   })
-  folder = sha1(params)
+  //folder = sha1(params)
   outputPath = `objects/${ftype}/${folder}/`
   mkdirp.sync(outputPath)
 console.log("wtf"+outputPath)
