@@ -4,6 +4,25 @@
 // description: a simple gear
 // file       : gear.jscad
 
+function parameterGroups() {
+  //group1: Variations focusing on fins and boosters
+  return [
+    [
+      { name: 'numTeeth', caption: 'Number of teeth:', type: 'int', min:5,max:10 ,step:1 },
+      { name: 'circularPitch', caption: 'Circular pitch:', type: 'float', min:5.5,max:8,step:0.5},
+      { name: 'pressureAngle', caption: 'Pressure angle:', type: 'float', initial: 20 },
+      { name: 'thickness', caption: 'Thickness:', type: 'float', min:3,max:7,step:0.5 },
+    ], 
+    [
+      { name: 'numTeeth', caption: 'Number of teeth:', type: 'int',min:11,max:15 ,step:1 },
+      { name: 'circularPitch', caption: 'Circular pitch:', type: 'float', min:5.5,max:8,step:0.5},
+      { name: 'thickness', caption: 'Thickness:', type: 'float', min:4,max:7,step:0.5 },
+    ] 
+  ]
+}
+
+
+
 // Here we define the user editable parameters: 
 function getParameterDefinitions() {
   return [

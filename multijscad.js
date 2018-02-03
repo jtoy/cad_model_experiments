@@ -2,8 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const {execSync} = require('child_process')
 var _eval = require('eval')
-//var sha1 = require('sha1');
-var mkdirp = require('mkdirp');
 
 
 const args = process.argv.splice(2)
@@ -25,8 +23,13 @@ function to_array(json){
   }else{
     step = 1
   }
-  for(var i = json['min'];i <= json['max'];i+= step){
-    array.push(i)
+  if(json['values']){
+    array = json['values']
+  }else{
+
+    for(var i = json['min'];i <= json['max'];i+= step){
+      array.push(i)
+    }
   }
   if(array.length > 0){
     return array
@@ -38,9 +41,13 @@ function to_array(json){
 getGetParameterDefinitions = new Function(src + ";\nreturn getParameterDefinitions();");
 data = getGetParameterDefinitions();
 json = {}
+total = 1
 for ( var i = 0; i < data.length; i++) {
-  json[data[i]['name']] = to_array(data[i])
+  array = to_array(data[i])
+  total = total * array.length
+  json[data[i]['name']] = array
 }
+console.log("total combinations will be "+ total)
 combos = Object.keys(json).reduce((acc, key) => {
   newArray = [];
 
@@ -57,7 +64,6 @@ combos = Object.keys(json).reduce((acc, key) => {
   return newArray;
 }, []);
 jscadPath = "openjscad"
-console.log("total variations: "+combos.length)
 for(var i=0;  i < combos.length; i++){
   params = ""
   folder = ""
@@ -68,8 +74,8 @@ for(var i=0;  i < combos.length; i++){
   })
   //folder = sha1(params)
   outputPath = `objects/${ftype}/${folder}/`
-  mkdirp.sync(outputPath)
-console.log("wtf"+outputPath)
+  mkdir_cmd = `mkdir -p ${outputPath}/`
+  execSync(mkdir_cmd, {stdio: [0, 1, 2]})
 
   cmd = `${jscadPath} ${inputFile} ${params} -o ${outputPath}/file.stl `
   console.log(cmd)
